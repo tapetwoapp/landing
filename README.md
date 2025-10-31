@@ -45,12 +45,14 @@ sudo apt-get install imagemagick  # Linux
 
 ### Convert jpg in webp
 cd public/posters
+
 ```for file in *.jpg; do
   magick "$file" -quality 80 "${file%.jpg}.webp"
 done```
 
 ### Rezize image to 120x180
 cd public/posters
+
 ```for file in *.jpg; do
   magick "$file" -resize 120x180^ -gravity center -extent 120x180 "$file"
 done```
