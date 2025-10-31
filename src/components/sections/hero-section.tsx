@@ -17,6 +17,7 @@ export default function HeroSection() {
             transition={{ duration: 0.5 }}
           >
             <Logo />
+            
           </motion.div>
           <motion.h1
             className="text-4xl font-semibold text-center text-foreground sm:text-5xl md:text-[4rem]"
