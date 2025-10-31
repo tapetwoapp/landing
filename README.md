@@ -34,3 +34,23 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+Image optimization
+
+## Image Optimization
+
+bash# install imagemagick
+brew install imagemagick  # Mac
+sudo apt-get install imagemagick  # Linux
+
+### Convert jpg in webp
+cd public/posters
+```for file in *.jpg; do
+  magick "$file" -quality 80 "${file%.jpg}.webp"
+done```
+
+### Rezize image to 120x180
+cd public/posters
+```for file in *.jpg; do
+  magick "$file" -resize 120x180^ -gravity center -extent 120x180 "$file"
+done```
