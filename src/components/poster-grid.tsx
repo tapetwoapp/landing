@@ -48,7 +48,7 @@ export default function PosterGrid() {
   return (
     <div className="absolute inset-0 overflow-hidden">
       <motion.div
-        className="absolute top-1/2 left-1/2 "
+        className="absolute top-1/2 left-1/2 will-change-transform"
         initial={{ rotate: 0 }}
         animate={{ rotate: -15 }}
         transition={{

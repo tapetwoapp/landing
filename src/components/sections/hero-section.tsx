@@ -8,7 +8,7 @@ export default function HeroSection() {
   return (
     <div className="relative">
       <PosterGrid />
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-background/60 to-background" />
+      <div className="absolute inset-0 pointer-events-none bg-linear-to-b from-background/60 to-background" />
       <section className="relative min-h-screen mx-auto max-w-7xl flex flex-col items-center justify-center">
         <div className="flex flex-col gap-6 justify-center items-center max-w-3xl">
           <motion.div
