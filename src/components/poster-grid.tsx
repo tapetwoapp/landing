@@ -16,7 +16,7 @@ export default function PosterGrid() {
   useEffect(() => {
     const cols = 20;
     const rows = 9;
-    
+
     const totalPosters = cols * rows;
     const posterArray: Poster[] = Array.from(
       { length: totalPosters },
@@ -68,7 +68,8 @@ export default function PosterGrid() {
 
           if (isInCenter) return null;
 
-          const offsetX = row % 2 === 1 ? (posterWidth + gap) / 2 : 0;
+          // const offsetX = row % 2 === 1 ? (posterWidth + gap) / 2 : 0;
+          const offsetX = row % 2 === 0 ? (posterWidth + gap) / 2 : 0;
 
           const gridWidth = cols * (posterWidth + gap);
           const gridHeight = rows * (posterHeight + gap);
