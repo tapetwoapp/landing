@@ -87,7 +87,7 @@ export default function PosterGrid() {
                 delay: poster.delay,
                 ease: "easeOut",
               }}
-              className="absolute rounded-md overflow-hidden cursor-pointer group"
+              className="absolute rounded-2xl overflow-hidden cursor-pointer group"
               style={{
                 left: `${left}px`,
                 top: `${top}px`,
