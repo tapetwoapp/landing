@@ -24,7 +24,7 @@ export default function PosterGrid() {
         id: i + 1,
         url: `/posters/poster-${(i % 99) + 1}.webp`,
         delay: Math.random() * 0.5,
-      })
+      }),
     );
 
     const shuffled = posterArray.sort(() => Math.random() - 0.5);

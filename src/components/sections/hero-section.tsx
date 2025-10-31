@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 import Logo from "../logo";
 import PosterGrid from "../poster-grid";
@@ -26,21 +27,31 @@ export default function HeroSection() {
           >
             Tr
             <span className="inline-block align-middle">
-              <img
+              <Image
                 src="/check.png"
                 alt="Checkmark"
+                width={36}
+                height={36}
                 className="h-9 w-9 object-cover"
               />
             </span>
             ck what you w
             <span className="inline-block align-middle">
-              <img src="/eye.png" alt="Eye" className="h-9 w-9 object-cover" />
+              <Image
+                src="/eye.png"
+                alt="Eye"
+                width={36}
+                height={36}
+                className="h-9 w-9 object-cover"
+              />
             </span>
             tch. Build c
             <span className="inline-block align-middle">
-              <img
+              <Image
                 src="/folder.png"
                 alt="Folder"
+                width={36}
+                height={36}
                 className="h-9 w-9 object-cover"
               />
             </span>
