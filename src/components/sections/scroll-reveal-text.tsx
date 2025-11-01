@@ -29,12 +29,12 @@ export default function ScrollRevealText({
     gsap.fromTo(
       splitText.words,
       {
-        color: "rgb(75, 85, 99)",
+        color: "rgb(89, 89, 89)",
       },
       {
         color: "rgb(255, 255, 255)",
         duration: 0.3,
-        stagger: 0.02,
+        stagger: 1,
         scrollTrigger: {
           trigger: textElement,
           start: "top 80%",

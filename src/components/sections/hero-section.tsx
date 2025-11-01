@@ -1,9 +1,10 @@
 "use client";
-import { motion } from "framer-motion";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 import Logo from "../logo";
 import PosterGrid from "../poster-grid";
+import { DownloadButton } from "../download-button";
 
 export default function HeroSection() {
   return (
@@ -66,6 +67,14 @@ export default function HeroSection() {
             With TapeTwo you can build collections, track what you've seen, and
             keep everything structured.
           </motion.p>
+          <motion.div
+            className="flex flex-col gap-4"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            <DownloadButton />
+          </motion.div>
         </div>
       </section>
     </div>
