@@ -1,10 +1,10 @@
 "use client";
-import Image from "next/image";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
+import { DownloadButton } from "../download-button";
 import Logo from "../logo";
 import PosterGrid from "../poster-grid";
-import { DownloadButton } from "../download-button";
 
 export default function HeroSection() {
   return (

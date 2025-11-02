@@ -43,7 +43,7 @@ export default function ScrollRevealText({
           markers: false,
           toggleActions: "play play reverse reverse",
         },
-      }
+      },
     );
 
     return () => {

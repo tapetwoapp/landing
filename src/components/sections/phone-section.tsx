@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -62,7 +62,7 @@ export default function PhoneSection() {
   const current = TABS.find((t) => t.id === activeTab) || TABS[0];
 
   return (
-    <section className="mx-auto mt-28 grid max-w-7xl grid-cols-12 gap-6 px-4">
+    <section className="mx-auto mt-10 grid max-w-7xl grid-cols-12 gap-6 px-4">
       <div className="col-span-1"></div>
       <div className="col-span-5 pt-28">
         <div className="grid gap-8">
@@ -72,7 +72,7 @@ export default function PhoneSection() {
               type="button"
               onClick={() => handleTabChange(tab.id)}
               className={cn(
-                "cursor-pointer flex flex-col items-start text-start transition-opacity duration-300"
+                "cursor-pointer flex flex-col items-start text-start transition-opacity duration-300",
               )}
               variants={tabVariants}
               animate={activeTab === tab.id ? "active" : "inactive"}
@@ -107,28 +107,9 @@ export default function PhoneSection() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          {/* Контейнер телефону із фіксованим співвідношенням сторін (підігнати під вашу PNG-рамку) */}
-          <div
-            className="
-              relative w-full
-              aspect-[9/19.5]  /* пропорція айфона; відкоригуй під свою рамку */
-            "
-          >
-            {/* Внутрішній екран: керуємо полями так, щоб відео чітко вписалося під виріз екрана рамки */}
-            <div
-              className="
-                absolute inset-0 flex items-center justify-center
-                p-[5%] pt-[4%] pb-[4%]
-                /* 🎯 За потреби точніше підігнати поля під PNG-рамку: p-[x%], pt-[y%], pb-[z%] */
-              "
-              // Tailwind не має z-1 → використовуй z-[1] або просто порядок шарів
-            >
-              <div
-                className="
-                  relative h-full w-full overflow-hidden
-                  rounded-[8%] bg-black
-                "
-              >
+          <div className="relative w-full aspect-[9/19.5]">
+            <div className="absolute inset-0 flex items-center justify-center p-[5%] pb-[4%] pt-[4%]">
+              <div className="relative h-full w-full overflow-hidden rounded-[8%] bg-black">
                 <AnimatePresence mode="wait" custom={direction}>
                   <motion.video
                     key={current.videoSrc} // 👉 ключ по джерелу відео, аби міняти ролики між табами
@@ -157,11 +138,7 @@ export default function PhoneSection() {
               alt="Phone Frame"
               fill
               priority
-              className="
-                pointer-events-none select-none
-                z-20
-                /* не роби її напівпрозорою; якщо треба — використовуй валідні opacity (напр. opacity-90) */
-              "
+              className="pointer-events-none z-20 select-none"
             />
           </div>
         </motion.div>
