@@ -1,11 +1,10 @@
 {
-  "name": ".",
+  "name": "tape-two",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite dev --port 3000",
     "build": "vite build",
-    "start": "node ./dist/server/index.mjs",
     "serve": "vite preview",
     "test": "vitest run",
     "format": "biome format",
