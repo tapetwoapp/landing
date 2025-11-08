@@ -1,41 +1,46 @@
+import { Link } from "@tanstack/react-router";
 import { useMemo } from "react";
 import Logo from "@/components/logo";
 
 type FooterLink = {
 	label: string;
 	href: string;
+	hash?: string;
 };
 
 const FOOTER_LINKS: FooterLink[] = [
-	{ label: "Privacy Policy", href: "#" },
-	{ label: "Terms & Conditions", href: "#" },
-	{ label: "Contact Us", href: "#" },
+	{ label: "Privacy Policy", href: "/privacy-policy" },
+	{ label: "Terms & Conditions", href: "/terms-and-conditions" },
+	{ label: "Contact Us", href: "/", hash: "contact" },
 ];
 
 export default function FooterSection() {
 	const year = useMemo(() => new Date().getFullYear(), []);
 
 	return (
-		<footer className="bg-[#0f0f10] py-16 text-sm text-white/70">
+		<footer className="bg-[#101010] py-10 text-sm text-white/70">
 			<div className="mx-auto flex max-w-5xl flex-col items-center gap-8 px-6 text-center">
-				<Logo width={120} height={18} className="text-white" />
+				<Link to="/">
+					<Logo width={106} height={16} className="text-white" />
+				</Link>
 
 				<nav
 					aria-label="Footer navigation"
-					className="flex flex-wrap items-center justify-center gap-6 text-base text-white/80 sm:gap-8"
+					className="flex flex-wrap items-center justify-center gap-6 text-base text-white sm:gap-8"
 				>
 					{FOOTER_LINKS.map((item) => (
-						<a
+						<Link
 							key={item.label}
-							href={item.href}
-							className="transition hover:text-white"
+							to={item.href}
+							hash={item.hash}
+							className="transition hover:underline"
 						>
 							{item.label}
-						</a>
+						</Link>
 					))}
 				</nav>
 
-				<p className="text-sm text-white/60">© TapeTwo, {year}</p>
+				<p className="text-sm text-[#595959]">© TapeTwo, {year}</p>
 			</div>
 		</footer>
 	);

@@ -5,7 +5,9 @@ import HeroSection from "@/components/sections/hero-section";
 import PhoneSection from "@/components/sections/phone-section";
 import ScrollRevealText from "@/components/sections/scroll-reveal-text";
 
-export const Route = createFileRoute("/")({ component: App });
+export const Route = createFileRoute("/")({
+	component: App,
+});
 
 function App() {
 	return (

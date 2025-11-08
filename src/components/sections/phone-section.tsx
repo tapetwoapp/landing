@@ -7,7 +7,7 @@ interface Tab {
 	icon: string;
 	title: string;
 	description: string;
-	videoSrc: string; // 👈 додав відео на таб
+	videoSrc: string;
 }
 
 const TABS: Tab[] = [
@@ -69,7 +69,8 @@ export default function PhoneSection() {
 							type="button"
 							onClick={() => handleTabChange(tab.id)}
 							className={cn(
-								"cursor-pointer flex flex-col items-start text-start transition-opacity duration-300",
+								"cursor-pointer flex flex-col items-start text-start transition-opacity duration-300 rounded-lg p-4 hover:bg-white/5",
+								"focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white",
 							)}
 							variants={tabVariants}
 							animate={activeTab === tab.id ? "active" : "inactive"}
@@ -104,44 +105,12 @@ export default function PhoneSection() {
 					viewport={{ once: true, margin: "-100px" }}
 					transition={{ duration: 0.6, ease: "easeOut" }}
 				>
-					{/* <div className="relative w-full aspect-[9/19.5] bg-green-300">
-						<div className="absolute inset-0 flex items-center justify-center p-[1%] pb-[4%] pt-[4%] z-0">
-							<div className="relative h-full w-full overflow-hidden rounded-[8%] bg-black">
-								<AnimatePresence mode="wait" custom={direction}>
-									<motion.video
-										key={current.videoSrc} // 👉 ключ по джерелу відео, аби міняти ролики між табами
-										src={current.videoSrc}
-										autoPlay
-										loop
-										muted
-										playsInline
-										preload="metadata"
-										className="h-full w-full object-cover"
-										custom={direction}
-										initial={{ x: direction > 0 ? 280 : -280, opacity: 0 }}
-										animate={{ x: 0, opacity: 1 }}
-										exit={{ x: direction > 0 ? -280 : 280, opacity: 0 }}
-										transition={{
-											x: { type: "spring", stiffness: 320, damping: 30 },
-											opacity: { duration: 0.2 },
-										}}
-									/>
-								</AnimatePresence>
-							</div>
-						</div>
-
-						<img
-							src="/phone-mockup.png"
-							alt="Phone Frame"
-							className="pointer-events-none z-20 select-none w-full h-full object-contain"
-						/>
-					</div> */}
 					<div className="grid relative overflow-hidden">
 						<div className="col-start-1 row-start-1 p-[4%]">
 							<div className="relative h-full w-full overflow-hidden rounded-[8%] ">
 								<AnimatePresence mode="wait" custom={direction}>
 									<motion.video
-										key={current.videoSrc} // 👉 ключ по джерелу відео, аби міняти ролики між табами
+										key={current.videoSrc}
 										src={current.videoSrc}
 										autoPlay
 										loop

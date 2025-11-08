@@ -58,7 +58,7 @@ export default function HeroSection() {
 						llections.
 					</motion.h1>
 					<motion.p
-						className="max-w-xl mx-auto text-center text-lg text-foreground/70"
+						className="max-w-xl mx-auto text-center text-lg text-white"
 						initial={{ opacity: 0, y: 50 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5, delay: 0.4 }}
