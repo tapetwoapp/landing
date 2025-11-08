@@ -1,4 +1,4 @@
-import { cn } from "backup/src/lib/utils";
+import { cn } from "@/lib/utils";
 
 type DownloadButtonProps = {
 	className?: string;
