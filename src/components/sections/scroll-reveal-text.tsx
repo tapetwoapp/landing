@@ -58,7 +58,7 @@ export default function ScrollRevealText({
 			<div className="col-span-10">
 				<p
 					ref={textRef}
-					className={`text-center text-[2rem] leading-12 font-semibold`}
+					className={`text-center text-2xl leading-9 lg:text-[2rem] lg:leading-12 font-semibold`}
 				>
 					{text}
 				</p>
