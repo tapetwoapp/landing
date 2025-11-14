@@ -15,7 +15,11 @@ export const Route = createRootRoute({
 				content: "width=device-width, initial-scale=1",
 			},
 			{
-				title: "Tape Two",
+				title: "TapeTwo - Track Movies & Build Collections",
+			},
+			{
+				name: "description",
+				content: "Track what you watch and build custom movie collections with TapeTwo. Organize your personal film library by mood, genre, director, or any category you choose.",
 			},
 		],
 		links: [

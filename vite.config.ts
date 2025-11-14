@@ -16,6 +16,19 @@ const config = defineConfig({
     nitro(),
     viteReact(),
   ],
+  build: {
+    minify: 'esbuild',
+    cssMinify: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor': ['react', 'react-dom'],
+          'motion': ['framer-motion'],
+          'gsap': ['gsap'],
+        },
+      },
+    },
+  },
 })
 
 export default config

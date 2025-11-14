@@ -156,6 +156,7 @@ export default function PosterGrid({
 								height={posterHeight}
 								className="h-full w-full object-cover"
 								loading="lazy"
+								decoding="async"
 							/>
 
 							<div className="pointer-events-none absolute inset-0 shadow-2xl" />
