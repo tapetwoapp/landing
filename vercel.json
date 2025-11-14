@@ -3,10 +3,5 @@
     "env": {
       "NITRO_PRESET": "vercel"
     }
-  },
-  "functions": {
-    "api/**/*.ts": {
-      "maxDuration": 30
-    }
   }
 }
