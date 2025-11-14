@@ -17,7 +17,7 @@ const TABS: Tab[] = [
 		title: "Stay on track",
 		description:
 			"Follow your watching activity in one place — see series in progress, what's now available from your collections, and the latest titles you've added.",
-		videoSrc: "/video-1.mp4",
+		videoSrc: "https://j9efxe770anbwvjq.public.blob.vercel-storage.com/video-1.mp4",
 	},
 	{
 		id: 2,
@@ -25,7 +25,7 @@ const TABS: Tab[] = [
 		title: "Organize your way",
 		description:
 			"Create and manage collections that fit your style. Add any movie or series, then sort, filter, and search inside them to keep your library organized the way you like.",
-		videoSrc: "/video-2.mp4",
+		videoSrc: "https://j9efxe770anbwvjq.public.blob.vercel-storage.com/video-2.mp4",
 	},
 	{
 		id: 3,
@@ -33,7 +33,7 @@ const TABS: Tab[] = [
 		title: "Discover with ease",
 		description:
 			"Find movies and series across the full database or within your own collections. Popular titles are shown by default, so there's always something new and relevant to explore.",
-		videoSrc: "/video-3.mp4",
+		videoSrc: "https://j9efxe770anbwvjq.public.blob.vercel-storage.com/video-3.mp4",
 	},
 ];
 

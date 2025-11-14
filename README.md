@@ -42,7 +42,11 @@ npm run check
 
 ## Media Optimization
 
-Optimize images and videos for production deployment:
+### ⚠️ Important for Production
+
+According to [Vercel's best practices](https://vercel.com/guides/best-practices-for-hosting-videos-on-vercel-nextjs-mp4-gif), **large video files should be hosted on a CDN** (like Cloudinary or Vercel Blob) rather than directly on Vercel.
+
+**For development/testing**, you can optimize and use local videos:
 
 ```bash
 # Optimize videos (requires ffmpeg)
@@ -58,7 +62,7 @@ npm run optimize:images -- --resize
 npm run optimize:all
 ```
 
-See [MEDIA_OPTIMIZATION.md](MEDIA_OPTIMIZATION.md) for detailed instructions.
+**For production**, see [CLOUDINARY_SETUP.md](CLOUDINARY_SETUP.md) for hosting videos on a free CDN.
 
 
 
