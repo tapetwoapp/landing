@@ -34,12 +34,31 @@ This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
 
 This project uses [Biome](https://biomejs.dev/) for linting and formatting. The following scripts are available:
 
-
 ```bash
 npm run lint
 npm run format
 npm run check
 ```
+
+## Media Optimization
+
+Optimize images and videos for production deployment:
+
+```bash
+# Optimize videos (requires ffmpeg)
+npm run optimize:videos
+
+# Optimize images (requires imagemagick)
+npm run optimize:images
+
+# Optimize images and resize posters to 120x180px
+npm run optimize:images -- --resize
+
+# Optimize everything
+npm run optimize:all
+```
+
+See [MEDIA_OPTIMIZATION.md](MEDIA_OPTIMIZATION.md) for detailed instructions.
 
 
 
