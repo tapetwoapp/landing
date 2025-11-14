@@ -1,7 +1,7 @@
 import { defineNitroConfig } from 'nitro/config'
 
 export default defineNitroConfig({
-  // Vercel preset will be auto-detected or set via NITRO_PRESET env var
+  preset: 'vercel',
   publicAssets: [
     {
       baseURL: '/',
