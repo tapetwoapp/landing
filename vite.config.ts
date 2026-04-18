@@ -19,12 +19,18 @@ const config = defineConfig({
   build: {
     minify: 'esbuild',
     cssMinify: true,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'vendor': ['react', 'react-dom'],
-          'motion': ['framer-motion'],
-          'gsap': ['gsap'],
+  },
+  environments: {
+    client: {
+      build: {
+        rollupOptions: {
+          output: {
+            manualChunks: {
+              vendor: ['react', 'react-dom'],
+              motion: ['framer-motion'],
+              gsap: ['gsap'],
+            },
+          },
         },
       },
     },

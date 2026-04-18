@@ -26,7 +26,7 @@ export default function FooterSection() {
 
 				<nav
 					aria-label="Footer navigation"
-					className="flex flex-wrap items-center justify-center gap-6 text-base text-white sm:gap-8"
+					className="flex flex-col items-center justify-center gap-6 text-base text-white sm:flex-row sm:flex-wrap sm:gap-8"
 				>
 					{FOOTER_LINKS.map((item) => (
 						<Link

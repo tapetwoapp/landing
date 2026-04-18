@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { title } from "process";
 import FooterSection from "@/components/sections/footer-section";
 import HeaderSection from "@/components/sections/header-section";
 
@@ -101,7 +100,7 @@ function TestPage() {
 		<div>
 			<main className="min-h-screen bg-background flex flex-col">
 				<HeaderSection />
-				<div className="w-full mx-auto max-w-4xl my-12">
+				<div className="w-full mx-auto max-w-4xl my-12 px-4">
 					<h1 className="font-semibold text-[2rem]">Terms & Conditions</h1>
 
 					<ul className="mt-6">

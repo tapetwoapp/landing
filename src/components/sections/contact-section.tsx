@@ -4,10 +4,12 @@ import { cn } from "@/lib/utils";
 
 export default function ContactSection() {
 	const [email, setEmail] = useState("");
+	const [submitted, setSubmitted] = useState(false);
 	const emailId = useId();
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		setSubmitted(true);
 	};
 
 	return (
@@ -21,45 +23,58 @@ export default function ContactSection() {
 			<div className="absolute inset-0 bg-linear-to-b from-background via-black/85 to-black" />
 
 			<div className="relative z-10 mx-auto flex max-w-2xl flex-col gap-6 items-center text-center">
-				<div className="flex flex-col gap-4">
-					<h2 className="text-[2rem] font-semibold tracking-tight text-white">
-						More features are coming!
-					</h2>
-					<p className="text-xl leading-6 text-white font-light">
-						We’re just getting started. Subscribe to stay updated on upcoming
-						releases and new features we’re working on.
-					</p>
-				</div>
-				<form
-					onSubmit={handleSubmit}
-					className="mx-auto flex w-full flex-col items-center justify-center gap-4"
-				>
-					<div className="flex gap-4">
-						<label htmlFor={emailId} className="sr-only">
-							Email
-						</label>
-						<input
-							id={emailId}
-							type="email"
-							required
-							placeholder="Email"
-							value={email}
-							onChange={(event) => setEmail(event.target.value)}
-							className={cn(
-								"w-[312px]",
-								"h-12 rounded-lg border border-white/10 bg-white/5 px-4 text-base text-white",
-								"placeholder:text-white/40 outline-none transition",
-								"focus:border-white focus:bg-white/10 focus:ring-2 focus:ring-white",
-							)}
-						/>
-						<button
-							type="submit"
-							className="h-12 w-full rounded-xl bg-white px-4 text-base font-semibold text-black transition hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto"
-						>
-							Subscribe
-						</button>
+				{submitted ? (
+					<div className="flex flex-col gap-4">
+						<h2 className="text-[2rem] font-semibold tracking-tight text-white">
+							🍿 You’re on the list!
+						</h2>
+						<p className="text-xl leading-6 text-white font-light">
+							We’ll email you when your beta access is ready. Make sure to check
+							your inbox and spam folder.
+						</p>
 					</div>
-				</form>
+				) : (
+					<>
+						<div className="flex flex-col gap-4 px-4">
+							<h2 className="text-[2rem] font-semibold tracking-tight text-white">
+								Join Beta
+							</h2>
+							<p className="text-xl leading-6 text-white font-light">
+								Sign up for the waitlist to get access to our closed beta.
+								Please use your Apple ID email, it’s required for access via
+								TestFlight.
+							</p>
+						</div>
+						<form
+							onSubmit={handleSubmit}
+							className="mx-auto flex w-full max-w-sm flex-col items-stretch justify-center gap-4 px-4 sm:max-w-none sm:flex-row sm:items-center sm:px-0"
+						>
+							<label htmlFor={emailId} className="sr-only">
+								Email
+							</label>
+							<input
+								id={emailId}
+								type="email"
+								required
+								placeholder="Email"
+								value={email}
+								onChange={(event) => setEmail(event.target.value)}
+								className={cn(
+									"w-full sm:w-[312px]",
+									"h-12 rounded-lg border border-white/10 bg-white/5 px-4 text-base text-white",
+									"placeholder:text-white/40 outline-none transition",
+									"focus:border-white focus:bg-white/10 focus:ring-2 focus:ring-white",
+								)}
+							/>
+							<button
+								type="submit"
+								className="h-12 w-full rounded-xl bg-white px-4 text-base font-semibold text-black transition hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto"
+							>
+								Sign Up
+							</button>
+						</form>
+					</>
+				)}
 			</div>
 		</section>
 	);

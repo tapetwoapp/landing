@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface Tab {
@@ -7,8 +7,11 @@ interface Tab {
 	icon: string;
 	title: string;
 	description: string;
-	videoSrc: string;
+	startTime: number;
 }
+
+const VIDEO_SRC =
+	"https://j9efxe770anbwvjq.public.blob.vercel-storage.com/website-video.mp4";
 
 const TABS: Tab[] = [
 	{
@@ -17,7 +20,7 @@ const TABS: Tab[] = [
 		title: "Stay on track",
 		description:
 			"Follow your watching activity in one place — see series in progress, what's now available from your collections, and the latest titles you've added.",
-		videoSrc: "https://j9efxe770anbwvjq.public.blob.vercel-storage.com/video-1.mp4",
+		startTime: 0,
 	},
 	{
 		id: 2,
@@ -25,7 +28,7 @@ const TABS: Tab[] = [
 		title: "Organize your way",
 		description:
 			"Create and manage collections that fit your style. Add any movie or series, then sort, filter, and search inside them to keep your library organized the way you like.",
-		videoSrc: "https://j9efxe770anbwvjq.public.blob.vercel-storage.com/video-2.mp4",
+		startTime: 8,
 	},
 	{
 		id: 3,
@@ -33,7 +36,7 @@ const TABS: Tab[] = [
 		title: "Discover with ease",
 		description:
 			"Find movies and series across the full database or within your own collections. Popular titles are shown by default, so there's always something new and relevant to explore.",
-		videoSrc: "https://j9efxe770anbwvjq.public.blob.vercel-storage.com/video-3.mp4",
+		startTime: 17,
 	},
 ];
 
@@ -42,27 +45,74 @@ const tabVariants = {
 	active: { opacity: 1 },
 };
 
-const contentVariants = {
-	hidden: { opacity: 0, y: 12 },
-	visible: { opacity: 1, y: 0 },
+const getTabIdForTime = (time: number) => {
+	let match = TABS[0].id;
+	for (const tab of TABS) {
+		if (time + 0.05 >= tab.startTime) match = tab.id;
+	}
+	return match;
 };
 
 export default function PhoneSection() {
-	const [activeTab, setActiveTab] = useState(1);
-	const [direction, setDirection] = useState(1);
+	const videoRef = useRef<HTMLVideoElement>(null);
+	const [activeTab, setActiveTab] = useState(TABS[0].id);
 
-	const handleTabChange = (newTab: number) => {
-		setDirection(newTab > activeTab ? 1 : -1);
-		setActiveTab(newTab);
+	const handleTabChange = (tabId: number) => {
+		const tab = TABS.find((t) => t.id === tabId);
+		const video = videoRef.current;
+		if (!tab || !video) return;
+		video.currentTime = tab.startTime;
+		setActiveTab(tabId);
 	};
 
-	const current = TABS.find((t) => t.id === activeTab) || TABS[0];
+	const handleTimeUpdate = () => {
+		const video = videoRef.current;
+		if (!video) return;
+		const next = getTabIdForTime(video.currentTime);
+		setActiveTab((prev) => (prev === next ? prev : next));
+	};
+
+	const current = TABS.find((t) => t.id === activeTab) ?? TABS[0];
 
 	return (
-		<section className="mx-auto mt-10 grid max-w-7xl grid-cols-12 gap-6 px-4">
-			<div className="col-span-1"></div>
-			<div className="col-span-5 pt-28">
-				<div className="grid gap-8">
+		<section className="mx-auto mt-10 flex max-w-7xl flex-col items-center gap-8 px-4 lg:grid lg:grid-cols-12 lg:gap-6">
+			<div className="order-2 w-full lg:order-1 lg:col-span-5 lg:col-start-2 lg:pt-28">
+				<div className="mx-auto flex w-full max-w-md flex-col items-center gap-6 text-center lg:hidden">
+					<AnimatePresence mode="wait">
+						<motion.div
+							key={current.id}
+							initial={{ opacity: 0, y: 8 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 0, y: -8 }}
+							transition={{ duration: 0.25 }}
+							className="flex flex-col gap-2"
+						>
+							<div className="text-xl font-semibold leading-9">
+								{current.icon} {current.title}
+							</div>
+							<p className="leading-6 text-white/80">{current.description}</p>
+						</motion.div>
+					</AnimatePresence>
+					<div className="flex items-center justify-center gap-3">
+						{TABS.map((tab) => (
+							<button
+								key={tab.id}
+								type="button"
+								onClick={() => handleTabChange(tab.id)}
+								aria-label={`Show ${tab.title}`}
+								aria-current={activeTab === tab.id}
+								className={cn(
+									"h-2 rounded-full transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white",
+									activeTab === tab.id
+										? "w-6 bg-white"
+										: "w-2 bg-white/30 hover:bg-white/50",
+								)}
+							/>
+						))}
+					</div>
+				</div>
+
+				<div className="hidden lg:grid lg:gap-8">
 					{TABS.map((tab) => (
 						<motion.button
 							key={tab.id}
@@ -81,23 +131,13 @@ export default function PhoneSection() {
 							>
 								{tab.icon} {tab.title}
 							</motion.div>
-							<motion.div
-								key={`content-${tab.id}`}
-								variants={contentVariants}
-								initial="hidden"
-								animate="visible"
-								exit="hidden"
-								transition={{ duration: 0.25 }}
-								className="leading-6"
-							>
-								{tab.description}
-							</motion.div>
+							<div className="leading-6">{tab.description}</div>
 						</motion.button>
 					))}
 				</div>
 			</div>
-			<div className="col-span-1"></div>
-			<div className="col-span-3 flex items-center justify-center">
+
+			<div className="order-1 flex items-center justify-center lg:order-2 lg:col-span-3 lg:col-start-9">
 				<motion.div
 					className="relative w-full max-w-[320px] sm:max-w-[360px]"
 					initial={{ opacity: 0, scale: 0.96 }}
@@ -107,31 +147,22 @@ export default function PhoneSection() {
 				>
 					<div className="grid relative overflow-hidden">
 						<div className="col-start-1 row-start-1 p-[4%]">
-							<div className="relative h-full w-full overflow-hidden rounded-[8%] ">
-								<AnimatePresence mode="wait" custom={direction}>
-									<motion.video
-										key={current.videoSrc}
-										src={current.videoSrc}
-										autoPlay
-										loop
-										muted
-										playsInline
-										preload="metadata"
-										className="h-full w-full object-cover"
-										custom={direction}
-										initial={{ x: direction > 0 ? 280 : -280, opacity: 0 }}
-										animate={{ x: 0, opacity: 1 }}
-										exit={{ x: direction > 0 ? -280 : 280, opacity: 0 }}
-										transition={{
-											x: { type: "spring", stiffness: 320, damping: 30 },
-											opacity: { duration: 0.2 },
-										}}
-									/>
-								</AnimatePresence>
+							<div className="relative h-full w-full overflow-hidden rounded-[8%]">
+								<video
+									ref={videoRef}
+									src={VIDEO_SRC}
+									autoPlay
+									loop
+									muted
+									playsInline
+									preload="metadata"
+									onTimeUpdate={handleTimeUpdate}
+									className="h-full w-full object-cover"
+								/>
 							</div>
 						</div>
 
-						<div className="col-start-1 row-start-1 z-1 ">
+						<div className="col-start-1 row-start-1 z-1">
 							<img
 								src="/phone-mockup.png"
 								alt="Phone Frame"

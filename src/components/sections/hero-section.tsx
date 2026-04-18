@@ -1,19 +1,20 @@
 "use client";
 import { motion } from "framer-motion";
 
-import { DownloadButton } from "../download-button";
+import { JoinBetaButton } from "../join-beta-button";
 import Logo from "../logo";
 import PosterGrid from "../poster-grid";
 
 export default function HeroSection() {
 	return (
 		<div className="relative">
-			<PosterGrid className="hidden lg:block" />
+			<PosterGrid className="hidden lg:block" rotate={-8} />
 			<PosterGrid
 				className="block lg:hidden"
 				gap={12}
 				posterHeight={133.64773379346556}
 				posterWidth={89.09848665251224}
+				rotate={-8}
 			/>
 			<div className="absolute inset-0 -bottom-1 pointer-events-none bg-linear-to-b from-background/60 to-background" />
 			<section className="relative min-h-screen mx-auto max-w-7xl flex flex-col items-center justify-center px-4">
@@ -60,7 +61,7 @@ export default function HeroSection() {
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5, delay: 0.6 }}
 					>
-						<DownloadButton />
+						<JoinBetaButton />
 					</motion.div>
 				</div>
 			</section>

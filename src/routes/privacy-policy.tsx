@@ -83,7 +83,7 @@ function PrivacyPolicyPage() {
 		<div>
 			<main className="min-h-screen bg-background flex flex-col">
 				<HeaderSection />
-				<div className="w-full mx-auto max-w-4xl my-12">
+				<div className="w-full mx-auto max-w-4xl my-12 px-4">
 					<h1 className="font-semibold text-[2rem]">Privacy Policy</h1>
 
 					<ul className="mt-6">
