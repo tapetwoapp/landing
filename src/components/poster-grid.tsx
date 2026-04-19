@@ -46,18 +46,35 @@ export default function PosterGrid({
 	const [posters, setPosters] = useState<Poster[]>([]);
 
 	useEffect(() => {
-		const totalPosters = colsProp * rowsProp;
-		const posterArray: Poster[] = Array.from(
-			{ length: totalPosters },
-			(_, i) => ({
-				id: i + 1,
-				url: `/posters/poster-${(i % 99) + 1}.webp`,
-				delay: Math.random() * 0.5,
-			}),
-		);
+		const TOTAL_POSTERS = 99;
+		const total = colsProp * rowsProp;
+		const urls: string[] = new Array(total);
 
-		const shuffled = posterArray.sort(() => Math.random() - 0.5);
-		setPosters(shuffled);
+		for (let idx = 0; idx < total; idx++) {
+			const row = Math.floor(idx / colsProp);
+			const col = idx % colsProp;
+			const leftUrl = col > 0 ? urls[idx - 1] : null;
+			const topUrl = row > 0 ? urls[idx - colsProp] : null;
+
+			const start = Math.floor(Math.random() * TOTAL_POSTERS);
+			let pick = `/posters/poster-${start + 1}.webp`;
+			for (let offset = 0; offset < TOTAL_POSTERS; offset++) {
+				const candidate = `/posters/poster-${((start + offset) % TOTAL_POSTERS) + 1}.webp`;
+				if (candidate !== leftUrl && candidate !== topUrl) {
+					pick = candidate;
+					break;
+				}
+			}
+			urls[idx] = pick;
+		}
+
+		setPosters(
+			urls.map((url, i) => ({
+				id: i + 1,
+				url,
+				delay: Math.random() * 0.5,
+			})),
+		);
 	}, [colsProp, rowsProp]);
 
 	const posterWidth = posterWidthProp;
