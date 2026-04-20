@@ -1,10 +1,6 @@
-import { defineEventHandler, getRequestIP, readBody } from "h3";
-import { Redis } from "@upstash/redis";
-import { Resend } from "resend";
+import { defineEventHandler, readBody } from "h3";
 
-const EMAIL_LIST_KEY = "beta:emails";
-const RATE_LIMIT_WINDOW_SECONDS = 600;
-const RATE_LIMIT_MAX_HITS = 5;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const ALLOWED_ORIGINS = new Set(
 	(
@@ -21,7 +17,11 @@ type Body = {
 	honeypot?: string;
 };
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+type SheetsResult = {
+	ok: boolean;
+	duplicate?: boolean;
+	error?: string;
+};
 
 export default defineEventHandler(async (event) => {
 	const origin = event.req.headers.get("origin");
@@ -40,67 +40,36 @@ export default defineEventHandler(async (event) => {
 		return { ok: false, error: "Please enter a valid email." };
 	}
 
-	const normalizedEmail = email.trim().toLowerCase();
+	const webhookUrl = process.env.SHEETS_WEBHOOK_URL;
+	const webhookSecret = process.env.SHEETS_WEBHOOK_SECRET;
+
+	if (!webhookUrl || !webhookSecret) {
+		console.error("SHEETS_WEBHOOK_URL or SHEETS_WEBHOOK_SECRET is not set");
+		return { ok: false, error: "Something went wrong. Please try again." };
+	}
 
 	try {
-		const redis = new Redis({
-			url: process.env.KV_REST_API_URL,
-			token: process.env.KV_REST_API_TOKEN,
+		const response = await fetch(webhookUrl, {
+			method: "POST",
+			headers: { "content-type": "application/json" },
+			redirect: "follow",
+			body: JSON.stringify({
+				secret: webhookSecret,
+				email: email.trim().toLowerCase(),
+				source: "landing-beta",
+			}),
 		});
 
-		const ip = getRequestIP(event, { xForwardedFor: true }) ?? "unknown";
-		const rateKey = `rate:beta:${ip}`;
-		const hits = await redis.incr(rateKey);
-		if (hits === 1) {
-			await redis.expire(rateKey, RATE_LIMIT_WINDOW_SECONDS);
-		}
-		if (hits > RATE_LIMIT_MAX_HITS) {
-			return {
-				ok: false,
-				error: "Too many attempts. Please try again later.",
-			};
+		const result = (await response.json()) as SheetsResult;
+
+		if (!result.ok) {
+			console.error("sheets webhook returned error", result);
+			return { ok: false, error: "Something went wrong. Please try again." };
 		}
 
-		const added = await redis.sadd(EMAIL_LIST_KEY, normalizedEmail);
-
-		if (added === 0) {
-			return { ok: true, duplicate: true };
-		}
-
-		const apiKey = process.env.RESEND_API_KEY;
-		if (!apiKey) {
-			console.warn("RESEND_API_KEY is not set; skipping confirmation email");
-		} else {
-			const resend = new Resend(apiKey);
-			const { data: sendData, error: sendError } = await resend.emails.send({
-				from: "TapeTwo <onboarding@resend.dev>",
-				to: normalizedEmail,
-				subject: "You're on the TapeTwo beta list",
-				html: `
-					<div style="font-family:Inter,Arial,sans-serif;max-width:480px;margin:0 auto;padding:24px;color:#0b0b0b">
-						<h1 style="font-size:22px;font-weight:600;margin:0 0 12px">🍿 You're on the list!</h1>
-						<p style="font-size:16px;line-height:1.5;margin:0 0 8px">
-							Thanks for signing up for the TapeTwo beta.
-						</p>
-						<p style="font-size:16px;line-height:1.5;margin:0 0 16px">
-							We'll email you when your beta access is ready. Make sure to check your inbox and spam folder.
-						</p>
-						<p style="font-size:13px;color:#595959;margin-top:24px">
-							Didn't sign up? Ignore this email.
-						</p>
-					</div>
-				`,
-			});
-			if (sendError) {
-				console.error("resend send failed", sendError);
-			} else {
-				console.log("resend sent", sendData?.id ?? "(no id)");
-			}
-		}
-
-		return { ok: true };
+		return result.duplicate ? { ok: true, duplicate: true } : { ok: true };
 	} catch (error) {
-		console.error("beta signup failed", error);
+		console.error("sheets webhook failed", error);
 		return { ok: false, error: "Something went wrong. Please try again." };
 	}
 });
