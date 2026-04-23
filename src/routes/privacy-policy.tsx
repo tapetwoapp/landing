@@ -51,7 +51,7 @@ const policy = [
 	},
 	{
 		title: "9. Contact Us",
-		content: `If you have any questions or concerns about this Privacy Policy, please contact us at: 📧 [hi@tapetwo.app](mailto:hi@tapetwo.app)`,
+		content: `If you have any questions or concerns about this Privacy Policy, please contact us at: 📧 [tapetwo.app@gmail.com](mailto:tapetwo.app@gmail.com)`,
 	},
 ];
 

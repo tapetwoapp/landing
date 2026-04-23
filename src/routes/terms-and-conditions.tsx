@@ -68,7 +68,7 @@ const terms = [
 	},
 	{
 		title: "9. Contact",
-		content: `If you have any questions about these Terms, please contact us at: 📧 [hi@tapetwo.app](mailto:hi@tapetwo.app)`,
+		content: `If you have any questions about these Terms, please contact us at: 📧 [tapetwo.app@gmail.com](mailto:tapetwo.app@gmail.com)`,
 	},
 ];
 
