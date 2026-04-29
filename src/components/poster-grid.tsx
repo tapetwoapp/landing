@@ -101,14 +101,9 @@ export default function PosterGrid({
 
 	return (
 		<div className={cn("absolute inset-0 overflow-hidden", className)}>
-			<motion.div
+			<div
 				className="absolute left-1/2 top-1/2 will-change-transform"
-				initial={{ rotate: 0 }}
-				animate={{ rotate: rotationAngle }}
-				transition={{
-					duration: 0.8,
-					ease: "easeIn",
-				}}
+				style={{ transform: `rotate(${rotationAngle}deg)` }}
 			>
 				{posters.slice(0, cols * rows).map((poster, index) => {
 					const row = Math.floor(index / cols);
@@ -180,7 +175,7 @@ export default function PosterGrid({
 						</motion.div>
 					);
 				})}
-			</motion.div>
+			</div>
 		</div>
 	);
 }
