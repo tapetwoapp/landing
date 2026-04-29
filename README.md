@@ -62,8 +62,6 @@ npm run optimize:images -- --resize
 npm run optimize:all
 ```
 
-**For production**, see [CLOUDINARY_SETUP.md](CLOUDINARY_SETUP.md) for hosting videos on a free CDN.
-
 
 
 ## Routing
