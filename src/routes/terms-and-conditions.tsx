@@ -108,7 +108,7 @@ function TestPage() {
 							<li key={section.title} className="mt-8 space-y-4">
 								<h2 className="text-xl font-medium">{section.title}</h2>
 								{section.content && (
-									<p className="text-justify leading-7 text-white/90">
+									<p className="text-start lg:text-justify leading-7 text-white/90">
 										{renderContent(section.content)}
 									</p>
 								)}
