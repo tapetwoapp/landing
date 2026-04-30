@@ -120,7 +120,7 @@ export default function ContactSection() {
 							<button
 								type="submit"
 								disabled={pending}
-								className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-white px-4 text-base font-semibold text-black transition hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:opacity-60 sm:w-auto"
+								className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-white px-4 text-base font-semibold text-black transition-colors hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:opacity-60 sm:w-auto"
 							>
 								{pending && (
 									<span
